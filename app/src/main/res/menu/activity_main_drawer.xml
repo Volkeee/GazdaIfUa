@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_1room"
+            android:title="@string/nav_1room" />
+        <item
+            android:id="@+id/nav_2rooms"
+            android:title="@string/nav_2room" />
+        <item
+            android:id="@+id/nav_3rooms"
+            android:title="@string/nav_3room" />
+        <item
+            android:id="@+id/nav_5rooms"
+            android:title="@string/nav_4_5room" />
+        <item
+            android:id="@+id/nav_mansions"
+            android:title="@string/nav_mansions" />
+        <item
+            android:id="@+id/nav_ground_sections"
+            android:title="@string/nav_ground_sections" />
+        <item
+            android:id="@+id/nav_cottages"
+            android:title="@string/nav_cottages" />
+        <item
+            android:id="@+id/nav_garages"
+            android:title="@string/nav_garages" />
+        <item
+            android:id="@+id/nav_commercials"
+            android:title="@string/nav_commercials" />
+    </group>
+</menu>

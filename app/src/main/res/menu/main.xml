@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/nav_homepage"
+        android:title="@string/nav_homepage" />
+    <item
+        android:id="@+id/nav_developers"
+        android:title="@string/nav_developers" />
+    <item
+        android:id="@+id/nav_notary"
+        android:title="@string/nav_notary" />
+    <item
+        android:id="@+id/nav_estimation"
+        android:title="@string/nav_estimation" />
+    <item
+        android:id="@+id/nav_repair"
+        android:title="@string/nav_repair" />
+    <item
+        android:id="@+id/nav_website"
+        android:title="@string/nav_website" />
+</menu>

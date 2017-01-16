@@ -1,0 +1,46 @@
+<resources>
+    <string name="content_description_horizontal_recyclerview_item">RecyclerView`s ViewHolder image</string>
+    <string name="view_description_textview_price">Ad Price</string>
+    <string name="view_description_textview_description">Ad Description</string>
+    <string name="view_description_textview_contactname">Contact Name</string>
+    <string name="view_description_textview_main_phone">(055) 55–555–55</string>
+    <string name="view_description_textview_additional_phone">(050) 55–555–55</string>
+    <string name="view_description_textview_address">str. Street, 55</string>
+
+    <string name="app_name">GazdaIfUa</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_main">GazdaIfUA</string>
+    <string name="title_contact_info">Контактна інформація:</string>
+    <string name="title_latest">Останні додані оголошення</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="error_no_ads_in_category">Категорія порожня! Оберіть, будь ласка, іншу</string>
+
+    <string name="descr_floatbutton">Перехід на додавання оголошення</string>
+    <string name="btn_descr_moreinfo">Детальніше</string>
+
+    <string name="nav_homepage">Домашня сторінка</string>
+    <string name="nav_developers">Забудовники</string>
+    <string name="nav_notary">Нотаріус</string>
+    <string name="nav_estimation">Оцінка</string>
+    <string name="nav_repair">Ремонт</string>
+    <string name="nav_website">Веб-сайт</string>
+    <string name="nav_1room">1-кімнатні</string>
+    <string name="nav_2room">2-кімнатні</string>
+    <string name="nav_3room">3-кімнатні</string>
+    <string name="nav_4_5room">4,5-кімнатні</string>
+    <string name="nav_mansions">Особняки</string>
+    <string name="nav_ground_sections">Земельні ділянки</string>
+    <string name="nav_cottages">Дачі</string>
+    <string name="nav_garages">Гаражі</string>
+    <string name="nav_commercials">Комерція</string>
+
+
+    <string name="title_activity_fullscreen_image">FullscreenImageActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+</resources>

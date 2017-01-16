@@ -1,0 +1,15 @@
+<resources>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="AppTheme.NavigationDrawer" parent="AppTheme">
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center_horizontal|center_vertical</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+</resources>
