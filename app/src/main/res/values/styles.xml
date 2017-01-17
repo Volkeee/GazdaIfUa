@@ -53,6 +53,10 @@
         </item>
     </style>
 
+    <style name="AppTheme.ToolbarButton" parent="Widget.AppCompat.ImageButton">
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+    </style>
+
     <style name="AppTheme.HorizontalImageRecycler.Normal" parent="AppTheme.HorizontalImageRecycler">
         <item name="android:layout_height">100dp</item>
     </style>

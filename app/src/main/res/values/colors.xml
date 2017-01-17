@@ -3,6 +3,7 @@
     <color name="colorPrimary">#0cb7cd</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorButtonNormal">#0cb7cd</color>
     <color name="textViewPriceBackground">#0bb8cf</color>
     <color name="buttonMoreInfoTextColor">#428bca</color>
     <color name="backgroundButton">#f3f3f3</color>

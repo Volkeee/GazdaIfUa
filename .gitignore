@@ -181,3 +181,4 @@ app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_6/co
 app/build/intermediates/transforms/mergeJniLibs/
 app/build/tmp/
 app/libs/
+!/app/src/main/res/drawable/ic_filter_list_white_48dp.xml
