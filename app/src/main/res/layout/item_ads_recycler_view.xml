@@ -36,7 +36,7 @@
                     android:layout_height="150dp"
                     android:adjustViewBounds="false"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@mipmap/image_house" />
+                    app:srcCompat="@drawable/ic_home_grey_700_48dp" />
 
             </FrameLayout>
 
@@ -55,8 +55,7 @@
                 <TextView
                     android:id="@+id/txtview_ad_descr"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_height="match_parent"
                     android:background="@color/cardview_light_background"
                     android:ellipsize="end"
                     android:lines="4"

@@ -15,8 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.softdeal.gazdaifua.R;
 import com.softdeal.gazdaifua.adapter.AdsRecyclerViewAdapter;
 import com.softdeal.gazdaifua.model.Advertisement;

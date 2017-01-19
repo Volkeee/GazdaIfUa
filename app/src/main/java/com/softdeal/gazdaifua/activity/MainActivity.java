@@ -18,7 +18,7 @@ import android.view.MenuItem;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.softdeal.gazdaifua.R;
+import com.softdeal.gazdaifua.*;
 import com.softdeal.gazdaifua.fragment.AdvertisementFragment;
 import com.softdeal.gazdaifua.fragment.WelcomeFragment;
 import com.softdeal.gazdaifua.model.Category;

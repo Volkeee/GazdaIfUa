@@ -4,19 +4,18 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.softdeal.gazdaifua.R;
-import com.softdeal.gazdaifua.adapter.AdsImagesRecyclerAdapter;
 import com.softdeal.gazdaifua.model.Advertisement;
 import com.softdeal.gazdaifua.service.ConnectionManager;
 import com.squareup.picasso.Picasso;
@@ -25,24 +24,26 @@ import java.util.ArrayList;
 
 public class AdDetailsActivity extends AppCompatActivity {
     public ArrayList<String> mLinks;
-    public RecyclerView mRecyclerView;
     public AdView mAdView;
     public ImagesLinksBroadcastReceiver mImagesLinksBroadcastReceiver;
-    public AdsImagesRecyclerAdapter mAdsImagesRecyclerAdapter;
     public ConnectionManager mConnectionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ad_details);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_images);
+        setContentView(R.layout.activity_ad_details2);
         mConnectionManager = new ConnectionManager(this);
         mImagesLinksBroadcastReceiver = new ImagesLinksBroadcastReceiver();
-
         mLinks = new ArrayList<>();
         mAdView = new AdView();
-        mAdsImagesRecyclerAdapter = new AdsImagesRecyclerAdapter(mLinks, mAdView.imageView);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setTitle("Оголошення");
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         if (intent != null) {
             IntentFilter imagesLinksFilter = new IntentFilter(ConnectionManager.ACTION_RETURNIMAGESLINKS);
@@ -53,19 +54,23 @@ public class AdDetailsActivity extends AppCompatActivity {
 
             mConnectionManager.requestAdvertisementsImages(advertisement);
 
-            if (advertisement.getImageLink() == null)
-                mAdView.imageView.setVisibility(View.GONE);
+            if (advertisement.getImageLink() != null) {
+                mAdView.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                Picasso.with(this).load(advertisement.getImageLink()).into(mAdView.imageView);
+                mAdView.imageView.setOnClickListener(view -> {
+                    Intent fullscreenActivityIntent = new Intent(this, FullscreenImageActivity.class);
+                    fullscreenActivityIntent.putExtra("imagesLinks", mLinks);
 
-            Picasso.with(this).load(advertisement.getImageLink()).into(mAdView.imageView);
+                    startActivity(fullscreenActivityIntent);
+                });
+            }
+
             mAdView.textViewAdDescription.setText(advertisement.getDescription());
             mAdView.textViewAdContactName.setText(advertisement.getContact());
             mAdView.textViewAdContact1.setText(advertisement.getMainPhoneNumber());
             mAdView.textViewAdContact2.setText(advertisement.getAdditionalPhoneNumber());
             mAdView.textViewAdPrice.setText(advertisement.getPrice().toString().concat("$"));
             mAdView.textViewAdAddress.setText(advertisement.getAddress());
-
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-            mRecyclerView.setAdapter(mAdsImagesRecyclerAdapter);
         }
     }
 
@@ -80,7 +85,7 @@ public class AdDetailsActivity extends AppCompatActivity {
         TextView textViewAdAddress;
 
         AdView() {
-            imageView = (ImageView) findViewById(R.id.imageView_ad);
+            imageView = (ImageView) findViewById(R.id.appbar_image_ad);
             recyclerView = (RecyclerView) findViewById(R.id.recycler_view_images);
             textViewAdDescription = (TextView) findViewById(R.id.txtView_ad_description);
             textViewAdPrice = (TextView) findViewById(R.id.txtview_ad_price);
@@ -99,10 +104,6 @@ public class AdDetailsActivity extends AppCompatActivity {
             if (intent.getStringExtra("ERROR") == null) {
                 mAdView.imageView.setVisibility(View.VISIBLE);
                 mLinks = (ArrayList<String>) intent.getSerializableExtra("imagesLinks");
-
-                mAdsImagesRecyclerAdapter.swap(mLinks);
-
-                if (mLinks.size() == 1) mRecyclerView.setVisibility(View.GONE);
                 try {
                     unregisterReceiver(mImagesLinksBroadcastReceiver);
                 } catch (IllegalArgumentException e) {
@@ -111,5 +112,4 @@ public class AdDetailsActivity extends AppCompatActivity {
             }
         }
     }
-
 }

@@ -1,7 +1,6 @@
 package com.softdeal.gazdaifua.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -41,13 +40,14 @@ public class AdsImagesRecyclerAdapter extends RecyclerView.Adapter<AdsImagesRecy
         Picasso.with(holder.context).load(imageLink).into(holder.imageView);
         holder.imageView.setOnClickListener(view -> {
             Picasso.with(holder.context).load(imageLink).into(mainImageView);
-            /*mainImageView.setOnClickListener(view1 ->  {
-                Intent intent = new Intent(holder.context, FullscreenImageActivity.class);
-                intent.putExtra("link",imageLink);
-
-                holder.context.startActivity(intent);
-            });*/
         });
+        /*Open fullscreen image activity with selected image*/
+//        mainImageView.setOnClickListener(view1 -> {
+//            Intent intent = new Intent(holder.context, FullscreenImageActivity.class);
+//            intent.putExtra("link", imageLink);
+//
+//            holder.context.startActivity(intent);
+//        });
 
     }
 
