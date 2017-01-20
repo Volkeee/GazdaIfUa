@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.softdeal.gazdaifua.R;
 import com.softdeal.gazdaifua.activity.AdDetailsActivity;
 import com.softdeal.gazdaifua.model.Advertisement;
+import com.softdeal.gazdaifua.service.ListFilter;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -21,7 +22,8 @@ import java.util.ArrayList;
  */
 
 public class AdsRecyclerViewAdapter extends RecyclerView.Adapter<AdsRecyclerViewAdapter.ViewHolder> {
-    private ArrayList<Advertisement> mAdvertisements;
+    public ArrayList<Advertisement> mAdvertisements;
+    private ListFilter mFilter;
 
     public AdsRecyclerViewAdapter(ArrayList<Advertisement> mAdvertisements) {
         this.mAdvertisements = mAdvertisements;
@@ -67,8 +69,9 @@ public class AdsRecyclerViewAdapter extends RecyclerView.Adapter<AdsRecyclerView
 
     public void swap(ArrayList<Advertisement> list) {
         if (mAdvertisements != null) {
+            ArrayList<Advertisement> arrayList = new ArrayList<>(list);
             mAdvertisements.clear();
-            mAdvertisements.addAll(list);
+            mAdvertisements.addAll(arrayList);
         } else {
             mAdvertisements = list;
         }

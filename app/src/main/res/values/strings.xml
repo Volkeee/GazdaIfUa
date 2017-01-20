@@ -43,5 +43,9 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_ad_details">AdDetailsActivity</string>
+    <string name="popup_byprice_abc">Ціна за зрост</string>
+    <string name="popup_byprice_cba">Ціна за спад</string>
+    <string name="popup_bydate_abc">Новіші</string>
+    <string name="popup_bydate_cba">Старіші</string>
 
 </resources>

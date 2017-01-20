@@ -1,7 +1,5 @@
 package com.softdeal.gazdaifua.model;
 
-import android.util.Log;
-
 import com.softdeal.gazdaifua.service.ConnectionManager;
 
 import org.json.JSONArray;
@@ -11,12 +9,37 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Created by Viktor on 06/01/2017.
  */
 
 public class Advertisement implements Serializable {
+    public static Comparator<Advertisement> PriceComparatorASC = (ad1, ad2) -> {
+        Integer price1 = ad1.getPrice();
+        Integer price2 = ad2.getPrice();
+
+        return price1.compareTo(price2);
+    };
+    public static Comparator<Advertisement> PriceComparatorDESC = (ad1, ad2) -> {
+        Integer price1 = ad1.getPrice();
+        Integer price2 = ad2.getPrice();
+
+        return price2.compareTo(price1);
+    };
+    public static Comparator<Advertisement> DateComparatorASC = (ad1, ad2) -> {
+        Integer id1 = ad1.getAdvertisementID();
+        Integer id2 = ad2.getAdvertisementID();
+
+        return id1.compareTo(id2);
+    };
+    public static Comparator<Advertisement> DateComparatorDESC = (ad1, ad2) -> {
+        Integer id1 = ad1.getAdvertisementID();
+        Integer id2 = ad2.getAdvertisementID();
+
+        return id2.compareTo(id1);
+    };
     private Integer advertisementID;
     private Category category;
     private Integer userID;

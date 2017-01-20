@@ -33,11 +33,11 @@ import java.util.ArrayList;
  */
 public class AdvertisementFragment extends Fragment {
     private static final String ARG_ADVERTISEMENT = "advertisement_parameter";
+    public RecyclerView mRecyclerView;
+    public AdsRecyclerViewAdapter mAdapter;
     private Category mCategory;
-    private RecyclerView mRecyclerView;
     private ConnectionManager mConnectionManager;
     private AdsBroadcastReceiver mAdsBroadcastReceiver;
-    private AdsRecyclerViewAdapter mAdapter;
     private ArrayList<Advertisement> mAdsList;
     private OnFragmentInteractionListener mListener;
 

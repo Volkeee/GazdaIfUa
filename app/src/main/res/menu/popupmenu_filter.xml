@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/popup_byprice_abc"
+            android:orderInCategory="1"
+            android:title="@string/popup_byprice_abc" />
+        <item
+            android:id="@+id/popup_byprice_cba"
+            android:orderInCategory="2"
+            android:title="@string/popup_byprice_cba" />
+        <item
+            android:id="@+id/popup_bydate_abc"
+            android:orderInCategory="3"
+            android:title="@string/popup_bydate_abc" />
+        <item
+            android:id="@+id/popup_bydate_cba"
+            android:orderInCategory="4"
+            android:title="@string/popup_bydate_cba" />
+    </group>
+</menu>

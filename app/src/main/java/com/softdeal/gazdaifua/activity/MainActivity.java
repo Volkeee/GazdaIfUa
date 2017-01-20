@@ -4,32 +4,44 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
-import com.softdeal.gazdaifua.*;
+import com.softdeal.gazdaifua.R;
 import com.softdeal.gazdaifua.fragment.AdvertisementFragment;
 import com.softdeal.gazdaifua.fragment.WelcomeFragment;
+import com.softdeal.gazdaifua.model.Advertisement;
 import com.softdeal.gazdaifua.model.Category;
 import com.softdeal.gazdaifua.service.ConnectionManager;
+import com.softdeal.gazdaifua.service.ListFilter;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements AdvertisementFragment.OnFragmentInteractionListener, WelcomeFragment.OnFragmentInteractionListener {
+    ListFilter priceFilterASC = new ListFilter("ASC", null);
+    ListFilter priceFilterDESC = new ListFilter("DESC", null);
+    ListFilter dateFilterASC = new ListFilter(null, "ASC");
+    ListFilter dateFilterDESC = new ListFilter(null, "DESC");
     private ConnectionManager mConnectionManager;
     private FragmentManager mFragmentManager;
     private Integer mQuantity;
     private DrawerLayout mDrawer;
+    private ImageButton mFilterButton;
+    private AdvertisementFragment mCurrentFragment;
+    private Boolean sortToggler = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +50,11 @@ public class MainActivity extends AppCompatActivity
 
         mConnectionManager = new ConnectionManager(this);
         mFragmentManager = getSupportFragmentManager();
+        mFilterButton = (ImageButton) findViewById(R.id.btn_filter);
+        mFilterButton.setVisibility(View.INVISIBLE);
         mQuantity = 10;
+        PopupMenu popupMenu = new PopupMenu(this, findViewById(R.id.btn_filter));
+        popupMenu.inflate(R.menu.popupmenu_filter);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_drawer_logo);
@@ -66,6 +82,57 @@ public class MainActivity extends AppCompatActivity
         );
         Fragment fragment = WelcomeFragment.newInstance(mQuantity);
         swapFragment(fragment, getString(R.string.title_latest));
+        mFilterButton.setOnClickListener(view -> {
+
+            popupMenu.setOnMenuItemClickListener(item -> {
+                ArrayList<Advertisement> list = mCurrentFragment.mAdapter.mAdvertisements;
+                switch (item.getItemId()) {
+                    case R.id.popup_byprice_abc:
+                        if (!item.isChecked()) {
+                            mCurrentFragment.mAdapter.swap(priceFilterASC.applyFilter(list));
+                            item.setChecked(!item.isChecked());
+                            return true;
+                        } else {
+                            mCurrentFragment.mAdapter.swap(new ArrayList<>(priceFilterASC.getOriginalList()));
+                            item.setChecked(!item.isChecked());
+                            return true;
+                        }
+                    case R.id.popup_byprice_cba:
+                        if (!item.isChecked()) {
+                            mCurrentFragment.mAdapter.swap(priceFilterDESC.applyFilter(list));
+                            item.setChecked(!item.isChecked());
+                            return true;
+                        } else {
+                            mCurrentFragment.mAdapter.swap(new ArrayList<>(priceFilterDESC.getOriginalList()));
+                            item.setChecked(!item.isChecked());
+                            return true;
+                        }
+                    case R.id.popup_bydate_abc:
+                        if (!item.isChecked()) {
+                            mCurrentFragment.mAdapter.swap(dateFilterASC.applyFilter(list));
+                            item.setChecked(!item.isChecked());
+                            return true;
+                        } else {
+                            mCurrentFragment.mAdapter.swap(new ArrayList<>(dateFilterDESC.getOriginalList()));
+                            item.setChecked(!item.isChecked());
+                            return true;
+                        }
+                    case R.id.popup_bydate_cba:
+                        if (!item.isChecked()) {
+                            mCurrentFragment.mAdapter.swap(dateFilterDESC.applyFilter(list));
+                            item.setChecked(!item.isChecked());
+                            return true;
+                        } else {
+                            mCurrentFragment.mAdapter.swap(new ArrayList<>(dateFilterDESC.getOriginalList()));
+                            item.setChecked(!item.isChecked());
+                            return true;
+                        }
+                    default:
+                        return false;
+                }
+            });
+            popupMenu.show();
+        });
     }
 
     @Override
@@ -109,6 +176,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_homepage) {
             Fragment fragment = WelcomeFragment.newInstance(mQuantity);
             swapFragment(fragment, getString(R.string.title_latest));
+            mFilterButton.setVisibility(View.INVISIBLE);
         }
 
         if (browserIntent != null) {
@@ -123,7 +191,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
-        Fragment fragment;
         Integer categoryNumber;
         switch (menuItem.getItemId()) {
             case R.id.nav_1room:
@@ -156,8 +223,9 @@ public class MainActivity extends AppCompatActivity
             default:
                 categoryNumber = 1;
         }
-        fragment = AdvertisementFragment.newInstance(new Category(categoryNumber));
-        swapFragment(fragment, menuItem.getTitle().toString());
+        mFilterButton.setVisibility(View.VISIBLE);
+        mCurrentFragment = AdvertisementFragment.newInstance(new Category(categoryNumber));
+        swapFragment(mCurrentFragment, menuItem.getTitle().toString());
 
         menuItem.setChecked(true);
 
