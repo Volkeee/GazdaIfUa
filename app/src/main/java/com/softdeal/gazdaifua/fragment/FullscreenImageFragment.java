@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 
 public class FullscreenImageFragment extends Fragment {
     public static final String ARGUMENT_IMAGE_LINK = "arg_page_number";
+    public ImageView imageView;
     String mLink;
 
     public static FullscreenImageFragment newInstance(String imageLink) {
@@ -38,9 +39,8 @@ public class FullscreenImageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_imageholder, container, false);
 
-        ImageView imageView = (ImageView) rootView.findViewById(R.id.fullscreen_imageview);
+        imageView = (ImageView) rootView.findViewById(R.id.fullscreen_imageview);
         Picasso.with(getContext()).load(mLink).into(imageView);
-
         return rootView;
     }
 }

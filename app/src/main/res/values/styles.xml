@@ -43,6 +43,7 @@
 
     <style name="AppTheme.HorizontalImageRecycler">
         <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginEnd">8dp</item>
         <item name="android:layout_marginStart">8dp</item>
         <item name="android:adjustViewBounds">true</item>
@@ -57,29 +58,29 @@
         <item name="colorButtonNormal">@color/colorPrimary</item>
     </style>
 
-    <style name="AppTheme.HorizontalImageRecycler.Normal" parent="AppTheme.HorizontalImageRecycler">
+    <!--<style name="AppTheme.HorizontalImageRecycler.Normal" parent="AppTheme.HorizontalImageRecycler">
         <item name="android:layout_height">100dp</item>
     </style>
 
     <style name="AppTheme.HorizontalImageRecycler.Large" parent="AppTheme.HorizontalImageRecycler">
-        <item name="android:layout_height">200dp</item>
+        <item name="android:layout_height">150dp</item>
     </style>
 
     <style name="AppTheme.HorizontalImageRecycler.XLarge" parent="AppTheme.HorizontalImageRecycler">
-        <item name="android:layout_height">250dp</item>
-    </style>
-
-    <style name="AppTheme.HorizontalImageRecycler.Normal.Land" parent="AppTheme.HorizontalImageRecycler">
-        <item name="android:layout_height">100dp</item>
-    </style>
-
-    <style name="AppTheme.HorizontalImageRecycler.Large.Land" parent="AppTheme.HorizontalImageRecycler">
         <item name="android:layout_height">200dp</item>
     </style>
 
-    <style name="AppTheme.HorizontalImageRecycler.XLarge.Land" parent="AppTheme.HorizontalImageRecycler">
-        <item name="android:layout_height">250dp</item>
+    <style name="AppTheme.HorizontalImageRecycler.Normal.Land" parent="AppTheme.HorizontalImageRecycler">
+        <item name="android:layout_height">75dp</item>
     </style>
+
+    <style name="AppTheme.HorizontalImageRecycler.Large.Land" parent="AppTheme.HorizontalImageRecycler">
+        <item name="android:layout_height">75dp</item>
+    </style>
+
+    <style name="AppTheme.HorizontalImageRecycler.XLarge.Land" parent="AppTheme.HorizontalImageRecycler">
+        <item name="android:layout_height">200dp</item>
+    </style>-->
 
     <style name="AppTheme.AdDetailsImageView">
 

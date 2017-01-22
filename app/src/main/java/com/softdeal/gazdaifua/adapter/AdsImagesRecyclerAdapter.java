@@ -2,6 +2,7 @@ package com.softdeal.gazdaifua.adapter;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +19,12 @@ import java.util.ArrayList;
  */
 
 public class AdsImagesRecyclerAdapter extends RecyclerView.Adapter<AdsImagesRecyclerAdapter.ViewHolder> {
+    private ViewPager mViewPager;
     private ArrayList<String> mLinks;
-    private ImageView mainImageView;
 
-    public AdsImagesRecyclerAdapter(ArrayList<String> links, ImageView mainImageView) {
+    public AdsImagesRecyclerAdapter(ArrayList<String> links, ViewPager viewPager) {
         this.mLinks = links;
-        this.mainImageView = mainImageView;
+        this.mViewPager = viewPager;
     }
 
     @Override
@@ -39,16 +40,8 @@ public class AdsImagesRecyclerAdapter extends RecyclerView.Adapter<AdsImagesRecy
 
         Picasso.with(holder.context).load(imageLink).into(holder.imageView);
         holder.imageView.setOnClickListener(view -> {
-            Picasso.with(holder.context).load(imageLink).into(mainImageView);
+            mViewPager.setCurrentItem(position, true);
         });
-        /*Open fullscreen image activity with selected image*/
-//        mainImageView.setOnClickListener(view1 -> {
-//            Intent intent = new Intent(holder.context, FullscreenImageActivity.class);
-//            intent.putExtra("link", imageLink);
-//
-//            holder.context.startActivity(intent);
-//        });
-
     }
 
     public void swap(ArrayList<String> list) {

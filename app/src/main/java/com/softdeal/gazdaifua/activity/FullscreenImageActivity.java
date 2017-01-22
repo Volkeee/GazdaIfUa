@@ -10,9 +10,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.softdeal.gazdaifua.R;
+import com.softdeal.gazdaifua.adapter.AdsImagesRecyclerAdapter;
 import com.softdeal.gazdaifua.fragment.FullscreenImageFragment;
 
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ public class FullscreenImageActivity extends AppCompatActivity {
     private static final boolean AUTO_HIDE = true;
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
     private static final int UI_ANIMATION_DELAY = 300;
+    public static FullscreenImageFragment mCurrentFragment;
     private final Handler mHideHandler = new Handler();
     private final Runnable mShowPart2Runnable = new Runnable() {
         @Override
@@ -35,14 +39,13 @@ public class FullscreenImageActivity extends AppCompatActivity {
 //            mControlsView.setVisibility(View.VISIBLE);
         }
     };
-    private boolean mVisible;
-    private final Runnable mHideRunnable = this::hide;
     private final View.OnTouchListener mDelayHideTouchListener = (view, motionEvent) -> {
         if (AUTO_HIDE) {
             delayedHide(AUTO_HIDE_DELAY_MILLIS);
         }
         return false;
     };
+    private boolean mVisible;
     private ViewPager mContentView;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
@@ -62,9 +65,12 @@ public class FullscreenImageActivity extends AppCompatActivity {
         }
     };
     private View mControlsView;
+    private final Runnable mHideRunnable = this::hide;
     private ViewPager mViewPager;
     private FullscreenImageAdapter mImagePager;
     private ArrayList<String> mLinks;
+    private AdsImagesRecyclerAdapter mAdapter;
+    private RecyclerView mRecyclerView;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -75,45 +81,38 @@ public class FullscreenImageActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("Зображення");
+            actionBar.setTitle(getString(R.string.title_activity_fullscreen_image));
         }
         Intent intent = getIntent();
         if (intent != null) {
             mLinks = (ArrayList<String>) intent.getSerializableExtra("imagesLinks");
             mImagePager = new FullscreenImageAdapter(getSupportFragmentManager(), mLinks);
             mVisible = true;
-//            mControlsView = findViewById(R.id.fullscreen_content_controls);
+            mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_images);
             mContentView = (ViewPager) findViewById(R.id.viewpager);
-//            mViewPager = (ViewPager) findViewById(R.id.viewpager);
             mContentView.setAdapter(mImagePager);
+
+            mAdapter = new AdsImagesRecyclerAdapter(mLinks, mContentView);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            mRecyclerView.setAdapter(mAdapter);
         }
 
-
         // Set up the user interaction to manually show or hide the system UI.
-        mContentView.setOnClickListener(view -> toggle());
+//        mContentView.setOnTouchListener((view, motionEvent) -> toggle());
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
-//        // while interacting with the UI.
-//        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        // while interacting with the UI.
+//        findViewById(R.id.fullscreen_recycler_view).setOnTouchListener(mDelayHideTouchListener);
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-
-        // Trigger the initial hide() shortly after the activity has been
-        // created, to briefly hint to the user that UI controls
-        // are available.
-//        delayedHide(100);
-    }
-
-    private void toggle() {
+    private boolean toggle() {
         if (mVisible) {
             hide();
         } else {
             show();
         }
+        return true;
     }
 
     private void hide() {
@@ -122,7 +121,7 @@ public class FullscreenImageActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
-//        mControlsView.setVisibility(View.GONE);
+        mControlsView.setVisibility(View.GONE);
         mVisible = false;
 
         // Schedule a runnable to remove the status and navigation bar after a delay
@@ -166,7 +165,9 @@ public class FullscreenImageActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return FullscreenImageFragment.newInstance(mImages.get(position));
+            FullscreenImageFragment fragment = FullscreenImageFragment.newInstance(mImages.get(position));
+            mCurrentFragment = fragment;
+            return fragment;
         }
 
 

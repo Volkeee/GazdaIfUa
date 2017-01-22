@@ -4,9 +4,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -38,11 +39,10 @@ public class AdDetailsActivity extends AppCompatActivity {
         mAdView = new AdView();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Оголошення");
+        setTitle(getString(R.string.title_activity_ad_details));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         if (intent != null) {
@@ -71,6 +71,22 @@ public class AdDetailsActivity extends AppCompatActivity {
             mAdView.textViewAdContact2.setText(advertisement.getAdditionalPhoneNumber());
             mAdView.textViewAdPrice.setText(advertisement.getPrice().toString().concat("$"));
             mAdView.textViewAdAddress.setText(advertisement.getAddress());
+
+            fab.setOnClickListener(view -> {
+                        if (advertisement.getAdditionalPhoneNumber().isEmpty()) {
+                            Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + advertisement.getMainPhoneNumber()));
+                            startActivity(dialIntent);
+                        } else {
+                            String[] numbers = new String[]{advertisement.getMainPhoneNumber(), advertisement.getAdditionalPhoneNumber()};
+                            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                            builder.setTitle(R.string.title_alert_call).setItems(numbers, (dialogInterface, i) -> {
+                                Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + numbers[i]));
+                                startActivity(dialIntent);
+                            });
+                            builder.show();
+                        }
+                    }
+            );
         }
     }
 

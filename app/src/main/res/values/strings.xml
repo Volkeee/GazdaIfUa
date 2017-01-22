@@ -39,13 +39,14 @@
     <string name="nav_commercials">Комерція</string>
 
 
-    <string name="title_activity_fullscreen_image">FullscreenImageActivity</string>
+    <string name="title_activity_fullscreen_image">Зображення</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="title_activity_ad_details">AdDetailsActivity</string>
+    <string name="title_activity_ad_details"> </string>
     <string name="popup_byprice_abc">Ціна за зрост</string>
     <string name="popup_byprice_cba">Ціна за спад</string>
     <string name="popup_bydate_abc">Новіші</string>
     <string name="popup_bydate_cba">Старіші</string>
+    <string name="title_alert_call">Оберіть номер</string>
 
 </resources>
